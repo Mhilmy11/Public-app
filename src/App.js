@@ -23,10 +23,19 @@ export default function App() {
 
   }
 
+  function Search(){
+    setIsApi(api.filter((e) => e.title.includes(search)))
+  }
+
   return (
     <>
       <Modal open={openModal} item={item} onClose={() => setIsOpenModal(false)}/>
-      <input placeholder='Search Here...' type="text" onChange={(e) => setIsSearch(e.target.value)} />
+      <input
+       placeholder='Search Here...' 
+       type="text" 
+       onChange={(e) => setIsSearch(e.target.value)}
+       />
+       <button onClick={() => Search(search)}>Search</button>
       {api.map((item) => (
         <Card api={item} onOpen={() => SetItem(item)} />
       ))}
