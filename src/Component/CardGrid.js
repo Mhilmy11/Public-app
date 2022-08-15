@@ -1,4 +1,5 @@
-export default function Card({ onOpen, api }) {
+export default function CardGrid({ api, onOpen, grid }) {
+    if (!grid) return null
     return (
         <div className="">
             <div onClick={() => onOpen(true)} className=" bg-lime-700 rounded-lg flex w-[400px]">
