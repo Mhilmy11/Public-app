@@ -1,9 +1,13 @@
-export default function ViewList() {
+export default function ViewList({ListView, list}) {
     return (
-        <div className=" pt-[75px] mb-2 w-full flex justify-end">
-            <div className=" text-xs text-gray-400">
-                <button className=" mr-2">Grid</button>
-                <button>Full</button>
+        <div className=" text-xs mb-2 w-full flex justify-end">
+            <h6 className=" mr-2">View : </h6>
+
+
+            <div className=" text-gray-400">
+                <button onClick={() => ListView(!list)}>
+                    {list === true ? "Grid": "List"}
+                </button>
             </div>
         </div>
     )

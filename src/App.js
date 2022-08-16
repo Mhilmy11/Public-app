@@ -2,10 +2,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './Component/Card';
-import CardGrid from './Component/CardGrid';
 import Container from './Component/Container';
 import Header from './Component/Header';
-import Modal from './Component/Modal';
+import ModalDetail from './Component/ModalDetail';
+import ModalFavorite from './Component/ModalFavorite';
 import ViewList from './Component/ViewList';
 
 export default function App() {
@@ -14,8 +14,8 @@ export default function App() {
   const [openModal, setIsOpenModal] = useState(false)
   const [item, setIsItem] = useState(null)
   const [search, setIsSearch] = useState("")
-  const [grid, setIsGrid] = useState(false)
-  const [full, setIsFull] = useState(false)
+  const [list, setIsList] = useState(false)
+  const [modalFavorite, setModalFavorite] = useState(false)
 
   useEffect(() => {
     axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
@@ -34,32 +34,38 @@ export default function App() {
     setIsApi(init.filter((name) => name.title.toLowerCase().includes(search)))
   }
 
-  function GridView() {
-    setIsFull(false)
-    setIsGrid(true)
-  }
-
-  function FullView() {
-    setIsGrid(false)
-    setIsFull(true)
-  }
-
   return (
     <>
-      <Modal open={openModal} item={item} onClose={setIsOpenModal} />
+      <ModalFavorite
+        setFavorite={setModalFavorite}
+        favorite={modalFavorite}
+      /> 
+
+      <ModalDetail
+        open={openModal}
+        item={item}
+        onClose={setIsOpenModal}
+      />
+
       <Header
         Search={Search}
         search={search}
         setSearch={setIsSearch}
+        onOpen={setModalFavorite}
       />
+
       <Container>
-        <ViewList />
-        <div className=' grid grid-cols-3 gap-4'>
-          {api.map((item) => (
-            <>
-              <CardGrid grid={grid} api={item} onOpen={() => SetItem(item)} />
-              <Card api={item} onOpen={() => SetItem(item)} />
-            </>
+        <ViewList
+        ListView={setIsList}
+        list={list}
+        />
+
+        <div className={list === true ? "grid grid-cols-3 gap-4": "grid gap-y-4 text-lg"}>
+          {api.map((item) => (    
+              <Card
+              api={item}
+              onOpen={() => SetItem(item)} 
+              />
           ))}
         </div>
       </Container>
