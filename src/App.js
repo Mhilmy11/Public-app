@@ -16,6 +16,29 @@ export default function App() {
   const [search, setIsSearch] = useState("")
   const [list, setIsList] = useState(false)
   const [modalFavorite, setModalFavorite] = useState(false)
+  const [favorite, setAddFavorite] = useState(getDataFromLS())
+
+  const getDataFromLS = () => {
+    const data = localStorage.getItem('favorite')
+    if (data) {
+      return JSON.parse(data)
+    }
+    else {
+      return []
+    }
+  }
+
+  const handleAddFavorite = (e) => {
+    e.preventDefault()
+    let fav = {
+      Card
+    }
+    setAddFavorite([...favorite, fav])
+  }
+
+  useEffect(() => {
+    localStorage,SetItem('favorite', JSON.stringify(favorite))
+  }, [favorite])
 
   useEffect(() => {
     axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
@@ -60,11 +83,11 @@ export default function App() {
         list={list}
         />
 
-        <div className={list === true ? "grid grid-cols-3 gap-4": "grid gap-y-4 text-lg"}>
+        <div className={list === true ? "grid grid-cols-3 gap-4" : "grid gap-y-4 text-lg"}>
           {api.map((item) => (    
               <Card
               api={item}
-              onOpen={() => SetItem(item)} 
+              onOpen={() => SetItem(item)}
               />
           ))}
         </div>

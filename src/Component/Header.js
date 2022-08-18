@@ -6,7 +6,7 @@ export default function Header({ search, Search, setSearch, onOpen }) {
             <Container>
                 <div className=" pt-6  pb-2 flex justify-between">
                     <div className=" flex items-center rounded-3xl border-4 border-zinc-800">
-                        <button onClick={() => onOpen(true)} className=" text-white text-xl font-bold px-3">Add Favorite</button>
+                        <button onClick={() => onOpen(true)} className=" text-white text-xl font-bold px-3">Favorite</button>
                     </div>
                     <div className=" border p-2 rounded-full border-zinc-800 bg-sky-900">
                         <input
