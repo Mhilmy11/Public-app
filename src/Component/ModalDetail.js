@@ -1,4 +1,10 @@
-export default function ModalDetail({open, onClose, item}) {
+export default function ModalDetail({
+    open, 
+    onClose, 
+    item,
+    favButton,
+    favorite
+}) {
     if (!open) return null
     return (
         <div classname=''>
@@ -16,7 +22,7 @@ export default function ModalDetail({open, onClose, item}) {
                                 <p className=" text-md">Slug : {item.slug}</p>
                             </div>
                             <div className=" p-3 w-full flex justify-end">
-                                <button className=" bg-green-600 rounded-3xl px-3 font-bold text-white">+ Favorite</button>
+                                <button onClick={() => favButton(!favorite)} className={favorite === true ? " bg-red-600 rounded-3xl px-3 font-bold text-white" : " bg-green-600 rounded-3xl px-3 font-bold text-white"}> {favorite === true ? "Delete Favorite" : "+ Favorite"} </button>
                             </div>
                         </div>
                     </div>

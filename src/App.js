@@ -16,30 +16,10 @@ export default function App() {
   const [search, setIsSearch] = useState("")
   const [list, setIsList] = useState(false)
   const [modalFavorite, setModalFavorite] = useState(false)
-  const [favorite, setAddFavorite] = useState(getDataFromLS())
+  const [favoriteButton, setFavoriteButton] = useState(false)
 
-  const getDataFromLS = () => {
-    const data = localStorage.getItem('favorite')
-    if (data) {
-      return JSON.parse(data)
-    }
-    else {
-      return []
-    }
-  }
-
-  const handleAddFavorite = (e) => {
-    e.preventDefault()
-    let fav = {
-      Card
-    }
-    setAddFavorite([...favorite, fav])
-  }
-
-  useEffect(() => {
-    localStorage,SetItem('favorite', JSON.stringify(favorite))
-  }, [favorite])
-
+  
+ 
   useEffect(() => {
     axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
       .then(res => {
@@ -68,6 +48,8 @@ export default function App() {
         open={openModal}
         item={item}
         onClose={setIsOpenModal}
+        favButton={setFavoriteButton}
+        favorite={favoriteButton}
       />
 
       <Header

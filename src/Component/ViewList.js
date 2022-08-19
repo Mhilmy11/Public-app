@@ -6,7 +6,7 @@ export default function ViewList({ListView, list}) {
 
             <div className=" text-gray-400">
                 <button onClick={() => ListView(!list)}>
-                    {list === true ? "Grid": "List"}
+                    {list === true ? "Grid" : "List"}
                 </button>
             </div>
         </div>
