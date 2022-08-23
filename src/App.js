@@ -18,7 +18,15 @@ export default function App() {
   const [modalFavorite, setModalFavorite] = useState(false)
   const [favoriteButton, setFavoriteButton] = useState(false)
 
-  
+  const getDataFromLS = () => {
+    const data = localStorage.getItem('api')
+    if (data) {
+      return JSON.parse(data)
+    }
+    else {
+      return []
+    }
+  }
  
   useEffect(() => {
     axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
