@@ -17,23 +17,21 @@ export default function App() {
   const [list, setIsList] = useState(false)
   const [modalFavorite, setModalFavorite] = useState(false)
   const [favoriteButton, setFavoriteButton] = useState(false)
-
-  const getDataFromLS = () => {
-    const data = localStorage.getItem('api')
-    if (data) {
-      return JSON.parse(data)
-    }
-    else {
-      return []
-    }
-  }
  
   useEffect(() => {
-    axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
+    
+    const checkLocalData = localStorage.comicManganya
+
+    if (checkLocalData) {
+      setIsApi(JSON.parse(checkLocalData))
+    } else {
+      axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
       .then(res => {
         setIsApi(res.data.data)
         setInit(res.data.data)
-      })
+        localStorage.setItem('comicManganya', JSON.stringify(res.data.data))
+        })
+    }
   }, [])
 
   function SetItem(item) {
@@ -74,8 +72,9 @@ export default function App() {
         />
 
         <div className={list === true ? "grid grid-cols-3 gap-4" : "grid gap-y-4 text-lg"}>
-          {api.map((item) => (    
+          {api.map((item, i) => (    
               <Card
+              i={i}
               api={item}
               onOpen={() => SetItem(item)}
               />
