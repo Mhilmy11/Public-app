@@ -1,8 +1,11 @@
 import Container from "./Container"
 
-export default function ModalFavorite({favorite, setFavorite}) {
+export default function ModalFavorite({
+    favorite,
+    setFavorite,
+}) {
     if (!favorite) return null
-    return(
+    return (
         <div>
             <div className=" bg-black opacity-50 h-screen w-full fixed"></div>
             <div className=" absolute flex justify-center items-center h-screen w-full">

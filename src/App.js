@@ -17,22 +17,41 @@ export default function App() {
   const [list, setIsList] = useState(false)
   const [modalFavorite, setModalFavorite] = useState(false)
   const [favoriteButton, setFavoriteButton] = useState(false)
- 
+
   useEffect(() => {
-    
+
     const checkLocalData = localStorage.comicManganya
 
     if (checkLocalData) {
       setIsApi(JSON.parse(checkLocalData))
     } else {
       axios.get("https://raw.githubusercontent.com/Mhilmy11/api/main/manganya.json")
-      .then(res => {
-        setIsApi(res.data.data)
-        setInit(res.data.data)
-        localStorage.setItem('comicManganya', JSON.stringify(res.data.data))
+        .then(res => {
+          setIsApi(res.data.data)
+          setInit(res.data.data)
+          localStorage.setItem('comicManganya', JSON.stringify(res.data.data))
         })
     }
   }, [])
+
+  function FavComic() {
+    setFavoriteButton(!favoriteButton)
+    localStorage.setItem('favoriteComic', JSON.stringify(item))
+    const addFavToLS = localStorage.getItem('favoriteComic')
+    if (addFavToLS) {
+      console.log(JSON.parse(addFavToLS))
+    } else {
+      return null
+    }
+  }
+
+  const handleAddToFavorite = (e) => {
+    e.preventDefault()
+    let toFav = {
+      item
+    }
+    setIsItem([...item, toFav])
+  }
 
   function SetItem(item) {
     setIsOpenModal(true)
@@ -48,7 +67,7 @@ export default function App() {
       <ModalFavorite
         setFavorite={setModalFavorite}
         favorite={modalFavorite}
-      /> 
+      />
 
       <ModalDetail
         open={openModal}
@@ -56,6 +75,8 @@ export default function App() {
         onClose={setIsOpenModal}
         favButton={setFavoriteButton}
         favorite={favoriteButton}
+        FavComic={FavComic}
+        handleToFav={handleAddToFavorite}
       />
 
       <Header
@@ -67,17 +88,17 @@ export default function App() {
 
       <Container>
         <ViewList
-        ListView={setIsList}
-        list={list}
+          ListView={setIsList}
+          list={list}
         />
 
         <div className={list === true ? "grid grid-cols-3 gap-4" : "grid gap-y-4 text-lg"}>
-          {api.map((item, i) => (    
-              <Card
+          {api.map((item, i) => (
+            <Card
               i={i}
               api={item}
               onOpen={() => SetItem(item)}
-              />
+            />
           ))}
         </div>
       </Container>
