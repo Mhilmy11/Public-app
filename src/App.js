@@ -17,6 +17,7 @@ export default function App() {
   const [list, setIsList] = useState(false)
   const [modalFavorite, setModalFavorite] = useState(false)
   const [favoriteButton, setFavoriteButton] = useState(false)
+  const [favoriteFromLS, setFavoriteFromLS] = useState(GetFavFromLS())
 
   useEffect(() => {
 
@@ -34,23 +35,24 @@ export default function App() {
     }
   }, [])
 
-  function FavComic() {
-    setFavoriteButton(!favoriteButton)
-    localStorage.setItem('favoriteComic', JSON.stringify(item))
-    const addFavToLS = localStorage.getItem('favoriteComic')
-    if (addFavToLS) {
-      console.log(JSON.parse(addFavToLS))
+  function GetFavFromLS() {
+    const fav = localStorage.getItem('favoriteComic')
+
+    if (fav) {
+      return JSON.parse(localStorage.getItem('favoriteComic'))
     } else {
-      return null
+      return []
     }
   }
 
-  const handleAddToFavorite = (e) => {
-    e.preventDefault()
-    let toFav = {
-      item
+  function FavComic() {
+    if (localStorage.getItem('favoriteComic')) {
+      const getFav = JSON.parse(localStorage.getItem('favoriteComic'))
+      localStorage.setItem('favoriteComic', JSON.stringify([...getFav, item]))
+    } else {
+      localStorage.setItem('favoriteComic', JSON.stringify([item]))
     }
-    setIsItem([...item, toFav])
+    setFavoriteFromLS(JSON.parse(localStorage.getItem('')))
   }
 
   function SetItem(item) {
@@ -67,6 +69,7 @@ export default function App() {
       <ModalFavorite
         setFavorite={setModalFavorite}
         favorite={modalFavorite}
+        favoriteFromLS={favoriteFromLS}
       />
 
       <ModalDetail
@@ -76,7 +79,6 @@ export default function App() {
         favButton={setFavoriteButton}
         favorite={favoriteButton}
         FavComic={FavComic}
-        handleToFav={handleAddToFavorite}
       />
 
       <Header
@@ -95,7 +97,7 @@ export default function App() {
         <div className={list === true ? "grid grid-cols-3 gap-4" : "grid gap-y-4 text-lg"}>
           {api.map((item, i) => (
             <Card
-              i={i}
+              key={i}
               api={item}
               onOpen={() => SetItem(item)}
             />

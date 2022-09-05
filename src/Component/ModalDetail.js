@@ -2,9 +2,20 @@ export default function ModalDetail({
     open,
     onClose,
     item,
-    favorite,
     FavComic,
 }) {
+    function CheckFavButton() {
+        const fav = JSON.parse(localStorage.getItem('favoriteComic'))
+        for (let index = 0; index < fav.length; index++) {
+            const element = fav[index];
+
+            if (item.title === element.title) {
+                return true
+            }
+        }
+        return false
+    }
+
     if (!open) return null
     return (
         <div className=''>
@@ -22,7 +33,13 @@ export default function ModalDetail({
                                 <p className=" text-md">Slug : {item.slug}</p>
                             </div>
                             <div className=" p-3 w-full flex justify-end">
-                                <button onClick={() => FavComic(!favorite)} className={favorite === true ? " bg-red-600 rounded-3xl px-3 font-bold text-white" : " bg-green-600 rounded-3xl px-3 font-bold text-white"}> {favorite === true ? "Delete Favorite" : "+ Favorite"} </button>
+
+                                {CheckFavButton() ? (
+                                    <button onClick={() => FavComic()} className=" bg-red-600 rounded-3xl px-3 font-bold text-white"> Delete Favorite </button>
+                                ) : (
+                                    <button onClick={() => FavComic()} className=" bg-green-600 rounded-3xl px-3 font-bold text-white"> + Favorite </button>
+                                )}
+
                             </div>
                         </div>
                     </div>
