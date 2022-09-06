@@ -52,7 +52,7 @@ export default function App() {
     } else {
       localStorage.setItem('favoriteComic', JSON.stringify([item]))
     }
-    setFavoriteFromLS(JSON.parse(localStorage.getItem('')))
+    setFavoriteFromLS(JSON.parse(localStorage.getItem('favoriteComic')))
   }
 
   function SetItem(item) {
@@ -89,6 +89,7 @@ export default function App() {
       />
 
       <Container>
+
         <ViewList
           ListView={setIsList}
           list={list}
@@ -103,6 +104,7 @@ export default function App() {
             />
           ))}
         </div>
+
       </Container>
     </>
   );

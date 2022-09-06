@@ -20,10 +20,11 @@ export default function ModalFavorite({
                             <h1 className=" p-4 text-5xl text-white">Your Favorite</h1>
                             <div>
                                 {favoriteFromLS.map((api, i) => (
-                                    <Card
-                                        key={i}
-                                        api={api}
-                                    />
+                                    <div key={i} className=" mb-2">
+                                        <Card
+                                            api={api}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </div>

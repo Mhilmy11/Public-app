@@ -11,6 +11,8 @@ export default function ModalDetail({
 
             if (item.title === element.title) {
                 return true
+            } else {
+
             }
         }
         return false
@@ -26,7 +28,7 @@ export default function ModalDetail({
                     <div className=" bg-cyan-900 rounded-3xl">
                         <div>
                             <div className=" w-full flex justify-center">
-                                <img className=' w-[400px] rounded-3xl p-3' src={item.cover} />
+                                <img className=' w-[400px] rounded-3xl p-3' src={item.cover} alt='cover' />
                             </div>
                             <div className=" p-3 w-[400px]">
                                 <h1 className=" font-bold text-white text-2xl">Title : {item.title}</h1>
