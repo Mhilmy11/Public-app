@@ -45,6 +45,14 @@ export default function App() {
     }
   }
 
+  const DeleteFavorite = (item) => {
+    const filteredFav = JSON.parse(localStorage.getItem('favoriteComic'))
+    filteredFav.filter((e, i) => {
+      const itemLS = filteredFav[i]
+      return itemLS.title === item
+    })
+  }
+
   function FavComic() {
     if (localStorage.getItem('favoriteComic')) {
       const getFav = JSON.parse(localStorage.getItem('favoriteComic'))
@@ -79,6 +87,7 @@ export default function App() {
         favButton={setFavoriteButton}
         favorite={favoriteButton}
         FavComic={FavComic}
+        deleteFavorite={DeleteFavorite}
       />
 
       <Header
