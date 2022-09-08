@@ -4,7 +4,7 @@ import Container from "./Container"
 export default function ModalFavorite({
     favorite,
     setFavorite,
-    favoriteFromLS
+    favoriteFromLS,
 }) {
     if (!favorite) return null
     return (
