@@ -47,10 +47,10 @@ export default function App() {
 
   const DeleteFavorite = (item) => {
     const filteredFav = JSON.parse(localStorage.getItem('favoriteComic'))
-    filteredFav.filter((e, i) => {
-      const itemLS = filteredFav[i]
-      return itemLS.title === item
-    })
+
+    setFavoriteFromLS(filteredFav.filter((e) => e.title !== item.title))
+
+    localStorage.setItem(JSON.stringify(filteredFav))
   }
 
   function FavComic() {
